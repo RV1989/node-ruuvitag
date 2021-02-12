@@ -1,34 +1,34 @@
-const noble = require('@abandonware/noble');
-const EventEmitter = require('events').EventEmitter;
+const noble = require("noble-winrt");
+const EventEmitter = require("events").EventEmitter;
 
 class Adapter extends EventEmitter {
-  constructor () {
+  constructor() {
     super();
 
-    noble.on('discover', (peripheral) => {
-      this.emit('discover', peripheral);
+    noble.on("discover", (peripheral) => {
+      this.emit("discover", peripheral);
     });
 
-    noble.on('warning', (warning) => {
-      this.emit('warning', warning);
+    noble.on("warning", (warning) => {
+      this.emit("warning", warning);
     });
 
     // start scanning
-    if (noble.state === 'poweredOn') {
+    if (noble.state === "poweredOn") {
       this.start();
     } else {
-      noble.once('stateChange', (state) => {
-        if (state === 'poweredOn') {
+      noble.once("stateChange", (state) => {
+        if (state === "poweredOn") {
           this.start();
         } else {
           this.stop();
         }
-        this.emit('stateChange', state);
+        this.emit("stateChange", state);
       });
     }
   }
 
-  start () {
+  start() {
     if (this._scanning) {
       return;
     }
@@ -36,7 +36,7 @@ class Adapter extends EventEmitter {
     noble.startScanning([], true);
   }
 
-  stop () {
+  stop() {
     if (!this._scanning) {
       return;
     }

@@ -22,7 +22,7 @@
     "sinon": "^9.0.2"
   },
   "dependencies": {
-    "@abandonware/noble": "^1.9.2-9"
+    "noble-winrt": "^0.1.1"
   },
   "prettier": {
     "printWidth": 120,
